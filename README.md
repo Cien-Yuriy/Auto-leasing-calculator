@@ -6,6 +6,8 @@ A Pen created on CodePen.io. Original URL: [https://codepen.io/Cien-Yuriy/full/y
 
 ![demo](https://cien-yuriy.github.io/Auto-leasing-calculator/images/demo.png)
 
+---
+
 ![demo mobile](https://cien-yuriy.github.io/Auto-leasing-calculator/images/demo-mobile.png)
 
 ---
