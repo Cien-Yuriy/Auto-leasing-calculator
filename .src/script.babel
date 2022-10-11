@@ -1,0 +1,92 @@
+
+class Calc extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state={coast: 3300000, percent: 13, term: 60};
+    this.handleChangeC=this.handleChangeC.bind(this);
+    this.handleChangeF=this.handleChangeF.bind(this);
+    this.handleChangeT=this.handleChangeT.bind(this);
+  }
+  handleChangeC(event) {
+    this.setState({coast: event.target.value});
+  }
+  handleChangeF(event) {
+    this.setState({percent: event.target.value});
+  }
+  handleChangeT(event) {
+    this.setState({term: event.target.value});
+  }
+  render() {
+    const firstPay = this.state.coast * this.state.percent / 100;
+    const monthPay = Math.round((this.state.coast - this.state.coast * this.state.percent / 100) * ((0.035 * Math.pow((1 + 0.035), this.state.term)) / (Math.pow((1 + 0.035), this.state.term) - 1)));
+    const totalSum = Math.round(this.state.coast * this.state.percent / 100 + this.state.term * monthPay);
+    
+    
+    return (
+      <div id="calc">
+        <h1>Рассчитайте стоимость автомобиля в лизинг</h1>
+        <form method="post" action="https://hookb.in/eK160jgYJ6UlaRPldJ1P" enctype="application/json">
+          <div id="coast">
+          <p>Стоимость автомобиля</p>
+            
+            <input id="field" type="number" name="car_coast" step="50000" value={this.state.coast} onChange={this.handleChangeC} min="1000000" max="6000000" /><div id="unitcoast">₽</div>
+            
+            <div className='slider'>
+            <input
+              max='6000000'
+              min='1000000'
+              onChange={this.handleChangeC}
+              step='50000'
+              type='range'
+              value={this.state.coast}
+            />
+          </div>
+          </div>
+          <div id="coast">
+          <p>Первоначальный взнос</p>
+            <div id="fieldip">
+              <div name="initail_payment" id="unit" value={firstPay}>{firstPay} <div id="unitip">₽</div></div>
+          <div><input id="fieldp" type="number" name="initail_payment_percent" value={this.state.percent} onChange={this.handleChangeF} min="10" max="60" /><div id="unitp">%</div></div>
+            </div>
+              <div className='slider'>
+            <input
+              max='60'
+              min='10'
+              onChange={this.handleChangeF}
+              step='1'
+              type='range'
+              value={this.state.percent}
+            />
+          </div>
+          </div>
+          <div id="coast">
+          <p>Срок лизинга</p>
+            
+          <input id="field" type="number" name="lease_term" value={this.state.term} onChange={this.handleChangeT} min="1" max="60" /><div id="unitterm">мес.</div>
+            
+              <div className='slider'>
+            <input
+              max='60'
+              min='1'
+              onChange={this.handleChangeT}
+              step='1'
+              type='range'
+              value={this.state.term}
+            />
+          </div>
+          </div>
+          <div>
+          <p>Сумма договора лизинга</p>
+            <h2 name="total_sum" value={totalSum}>{totalSum.toLocaleString()} <div id="unitb">₽</div></h2>
+          </div>
+          <div>
+          <p>Ежемесячный платеж от</p>
+          <h2 name="monthly_payment_from" value={monthPay}>{monthPay.toLocaleString()} <div id="unitb">₽</div></h2>
+          </div>
+        <button type="submit">Оставить заявку</button>
+        </form>
+      </div>);
+  }
+}
+
+ReactDOM.render(<Calc/>, document.getElementById("app"));//
